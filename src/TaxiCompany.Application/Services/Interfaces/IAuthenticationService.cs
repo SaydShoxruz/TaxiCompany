@@ -1,6 +1,6 @@
 ﻿using TaxiCompany.Application.Models.Authentication;
 
-namespace TaxiCompany.Application.Services;
+namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface IAuthenticationService
 {

@@ -1,6 +1,6 @@
 ﻿using TaxiCompany.Application.Common.Email;
 
-namespace TaxiCompany.Application.Services;
+namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface IEmailService
 {

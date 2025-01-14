@@ -17,7 +17,7 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -165,9 +165,6 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Priority")
                         .HasMaxLength(100)
                         .HasColumnType("integer");
@@ -176,15 +173,21 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("numeric");
 
+                    b.Property<int>("TarifType")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("CarsOwners");
                 });
@@ -204,9 +207,6 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
-
                     b.Property<bool>("SubscriptionStatus")
                         .HasColumnType("boolean");
 
@@ -216,9 +216,12 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Clients");
                 });
@@ -284,9 +287,6 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("character varying(14)");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Series")
                         .IsRequired()
                         .HasMaxLength(2)
@@ -298,9 +298,12 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Documents");
                 });
@@ -330,9 +333,6 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uuid");
 
@@ -342,13 +342,16 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("PersonId");
-
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
                 });
@@ -608,12 +611,12 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         new
                         {
                             Id = new Guid("bc56836e-0345-4f01-a883-47f39e32e079"),
-                            CreatedAt = new DateTime(2025, 1, 9, 14, 17, 46, 315, DateTimeKind.Utc).AddTicks(7867),
+                            CreatedAt = new DateTime(2025, 1, 14, 13, 13, 2, 391, DateTimeKind.Utc).AddTicks(4942),
                             Email = "saydshox123@gmail.com",
                             FirstName = "Shoxruz",
                             PasswordHash = "12345",
                             Role = 1,
-                            Salt = "156184f3-aec5-4e04-9aa6-7fa74d092639"
+                            Salt = "b2925647-0392-42a8-afc2-7d222814f96a"
                         });
                 });
 
@@ -664,24 +667,24 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
 
             modelBuilder.Entity("TaxiCompany.Core.Entities.CarsOwner", b =>
                 {
-                    b.HasOne("TaxiCompany.Core.Entities.Person", "Person")
+                    b.HasOne("TaxiCompany.Core.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaxiCompany.Core.Entities.Client", b =>
                 {
-                    b.HasOne("TaxiCompany.Core.Entities.Person", "Person")
+                    b.HasOne("TaxiCompany.Core.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaxiCompany.Core.Entities.Company", b =>
@@ -697,13 +700,13 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
 
             modelBuilder.Entity("TaxiCompany.Core.Entities.Document", b =>
                 {
-                    b.HasOne("TaxiCompany.Core.Entities.Person", "Person")
+                    b.HasOne("TaxiCompany.Core.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaxiCompany.Core.Entities.Employee", b =>
@@ -714,23 +717,23 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaxiCompany.Core.Entities.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TaxiCompany.Core.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TaxiCompany.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
 
-                    b.Navigation("Person");
-
                     b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaxiCompany.Core.Entities.Impressions", b =>

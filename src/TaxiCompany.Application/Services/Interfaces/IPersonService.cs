@@ -1,7 +1,7 @@
 ﻿using TaxiCompany.Application.Models;
 using TaxiCompany.Application.Models.Person;
 
-namespace TaxiCompany.Application.Services;
+namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface IPersonService
 {

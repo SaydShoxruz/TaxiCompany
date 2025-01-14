@@ -1,7 +1,7 @@
 ﻿using TaxiCompany.Application.Models;
 using TaxiCompany.Application.Models.Impressions;
 
-namespace TaxiCompany.Application.Services;
+namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface IImpressionsService
 {

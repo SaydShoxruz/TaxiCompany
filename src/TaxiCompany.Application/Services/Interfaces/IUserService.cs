@@ -1,7 +1,7 @@
 ﻿using TaxiCompany.Application.Models.Users;
 using TaxiCompany.Core.Entities;
 
-namespace TaxiCompany.Application.Services;
+namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface IUserService
 {

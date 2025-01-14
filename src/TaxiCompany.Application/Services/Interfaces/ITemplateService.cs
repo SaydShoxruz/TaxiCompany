@@ -1,4 +1,4 @@
-﻿namespace TaxiCompany.Application.Services;
+﻿namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface ITemplateService
 {

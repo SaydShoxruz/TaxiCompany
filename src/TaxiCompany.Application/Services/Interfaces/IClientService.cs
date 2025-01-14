@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TaxiCompany.Application.Models;
 using TaxiCompany.Application.Models.Client;
 
-namespace TaxiCompany.Application.Services;
+namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface IClientService
 {

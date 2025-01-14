@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaxiCompany.Core.Enums
+namespace TaxiCompany.Core.Enums;
+
+
+public enum TarifType
 {
-    internal class TarifTyoe
-    {
-    }
+    Delivery = 1,
+    Start,
+    Comfort,
+    Bussines,
+    Luxury
 }

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using TaxiCompany.Core.Entities;
 
-namespace TaxiCompany.DataAccess.Repositories;
+namespace TaxiCompany.DataAccess.Repositories.Interfaces;
 
 public interface IUserRepository
 {

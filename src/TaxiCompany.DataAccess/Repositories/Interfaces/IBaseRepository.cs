@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq.Expressions;
 
-namespace TaxiCompany.DataAccess.Repositories;
+namespace TaxiCompany.DataAccess.Repositories.Interfaces;
 
 public interface IBaseRepository<TEntity> where TEntity : BaseEntity
 {
