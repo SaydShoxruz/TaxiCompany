@@ -9,21 +9,31 @@ namespace TaxiCompany.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
+        private readonly IClientService _clientService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IDriverService _driverService;
 
         public UsersController(
-            IUserService userService)
+            IUserService userService, 
+            IClientService clientService, 
+            IEmployeeService employeeService, 
+            IDriverService driverService)
         {
-            this.userService = userService;
+            _userService = userService;
+            _clientService = clientService;
+            _employeeService = employeeService;
+            _driverService = driverService;
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public async ValueTask<ActionResult<UserDto>> PostUserAsync(
             UserForCreationDto userForCreationDto)
         {
-            var createdUser = await this.userService
+            var createdUser = await _userService
                 .CreateUserAsync(userForCreationDto);
+
+            await _userService.CreateByRole(createdUser);
 
             return Created("", createdUser);
         }
@@ -32,7 +42,7 @@ namespace TaxiCompany.API.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            var users = this.userService.RetrieveUsers();
+            var users = _userService.RetrieveUsers();
 
             return Ok(users);
         }
@@ -41,7 +51,7 @@ namespace TaxiCompany.API.Controllers
         public async ValueTask<ActionResult<UserDto>> GetUserByIdAsync(
             Guid userId)
         {
-            var user = await this.userService
+            var user = await _userService
                 .RetrieveUserByIdAsync(userId);
 
             return Ok(user);
@@ -51,7 +61,7 @@ namespace TaxiCompany.API.Controllers
         public async ValueTask<ActionResult<UserDto>> PutUserAsync(
             UserForModificationDto userForModificationDto)
         {
-            var modifiedUser = await this.userService
+            var modifiedUser = await _userService
                 .ModifyUserAsync(userForModificationDto);
 
             return Ok(modifiedUser);
@@ -61,7 +71,7 @@ namespace TaxiCompany.API.Controllers
         public async ValueTask<ActionResult<UserDto>> DeleteUserAsync(
             Guid userId)
         {
-            var removed = await this.userService
+            var removed = await _userService
                 .RemoveUserAsync(userId);
 
             return Ok(removed);

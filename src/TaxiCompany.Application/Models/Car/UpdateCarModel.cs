@@ -6,7 +6,7 @@ public class UpdateCarModel
 {
     public bool IsFree { get; set; }
 
-    public Guid OwnersId { get; set; }
+    public Guid DriversId { get; set; }
 
 
 }

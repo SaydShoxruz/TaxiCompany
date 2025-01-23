@@ -1,7 +1,6 @@
 ﻿using TaxiCompany.Application.Models.Users;
 using TaxiCompany.Application.Services.Interfaces;
 using TaxiCompany.Core.Entities;
-using TaxiCompany.Core.Enums;
 using TaxiCompany.DataAccess.Authentication;
 
 namespace TaxiCompany.Application.Services.Impl;
@@ -10,7 +9,8 @@ public class UserFactory : IUserFactory
 {
     private readonly IPasswordHasher passwordHasher;
 
-    public UserFactory(IPasswordHasher passwordHasher)
+    public UserFactory(
+        IPasswordHasher passwordHasher)
     {
         this.passwordHasher = passwordHasher;
     }
@@ -24,6 +24,7 @@ public class UserFactory : IUserFactory
         {
             FirstName = userForCreationDto.firstName,
             LastName = userForCreationDto.lastName,
+            PhoneNumber = userForCreationDto.phoneNumber,
             Email = userForCreationDto.email,
 
             Salt = randomSalt,
@@ -32,7 +33,7 @@ public class UserFactory : IUserFactory
                 password: userForCreationDto.password,
                 salt: randomSalt),
 
-            Role = UserRole.Client
+            Role = userForCreationDto.role
         };
     }
 
@@ -51,6 +52,7 @@ public class UserFactory : IUserFactory
             user.Id,
             user.FirstName,
             user.LastName!,
+            user.PhoneNumber,
             user.Email,
             user.Role);
     }

@@ -14,12 +14,12 @@ public class CarService : ICarService
 {
     private readonly IMapper _mapper;
     private readonly ICarRepository _carRepository;
-    private readonly ICarsOwnerRepository _carsOwnerRepository;
+    private readonly IDriverRepository _carsOwnerRepository;
     private readonly ICompanyRepository _companyRepository;
 
     public CarService(IMapper mapper,
         ICarRepository carRepository,
-        ICarsOwnerRepository carsOwnerRepository,
+        IDriverRepository carsOwnerRepository,
         ICompanyRepository companyRepository)
     {
         _mapper = mapper;
@@ -40,7 +40,7 @@ public class CarService : ICarService
     public async Task<CreateCarResponseModel> CreateAsync(CreateCarModel createCarModel,
         CancellationToken cancellationToken = default)
     {
-        var carsOwner = await _carsOwnerRepository.GetFirstAsync(cti => cti.Id == createCarModel.OwnersId);
+        var carsOwner = await _carsOwnerRepository.GetFirstAsync(cti => cti.Id == createCarModel.DriversId);
 
         var car = _mapper.Map<Car>(createCarModel);
         car.CarsOwner = carsOwner;

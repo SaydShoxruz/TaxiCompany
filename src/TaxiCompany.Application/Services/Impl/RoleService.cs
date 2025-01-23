@@ -4,7 +4,6 @@ using TaxiCompany.Application.Models;
 using TaxiCompany.Core.Entities;
 using TaxiCompany.DataAccess.Repositories.Impl;
 using TaxiCompany.Application.Models.Role;
-using TaxiCompany.Application.Models.Person;
 using TaxiCompany.Application.Services.Interfaces;
 using TaxiCompany.DataAccess.Repositories.Interfaces;
 

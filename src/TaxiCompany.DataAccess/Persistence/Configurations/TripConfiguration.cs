@@ -13,5 +13,6 @@ public class TripConfiguration : IEntityTypeConfiguration<Trip>
 
         builder.HasOne(tl => tl.Car);
 
+        builder.HasOne(tl => tl.Driver);
     }
 }

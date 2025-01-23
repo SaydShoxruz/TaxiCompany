@@ -12,6 +12,6 @@ public class CreateDocumentModel
 
     public string PINFL { get; set; }
 
-    public Guid PersonId { get; set; }
+    public Guid UserId { get; set; }
 }
 public class CreateDocumentResponseModel : BaseResponseModel { }

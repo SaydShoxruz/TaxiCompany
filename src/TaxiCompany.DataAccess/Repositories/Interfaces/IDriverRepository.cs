@@ -2,4 +2,4 @@
 
 namespace TaxiCompany.DataAccess.Repositories.Interfaces;
 
-public interface IPersonRepository : IBaseRepository<Person> { }
+public interface IDriverRepository : IBaseRepository<Driver> { }

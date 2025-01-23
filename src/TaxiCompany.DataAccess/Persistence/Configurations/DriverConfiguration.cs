@@ -4,9 +4,9 @@ using TaxiCompany.Core.Entities;
 
 namespace TaxiCompany.DataAccess.Persistence.Configurations;
 
-public class CarsOwnerConfiguration : IEntityTypeConfiguration<CarsOwner>
+public class DriverConfiguration : IEntityTypeConfiguration<Driver>
 {
-    public void Configure(EntityTypeBuilder<CarsOwner> builder)
+    public void Configure(EntityTypeBuilder<Driver> builder)
     {
         builder.HasOne(tl => tl.User);
 

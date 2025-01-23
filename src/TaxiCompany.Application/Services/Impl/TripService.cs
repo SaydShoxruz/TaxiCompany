@@ -2,7 +2,6 @@
 using TaxiCompany.Application.Models.Insurance;
 using TaxiCompany.Application.Models;
 using TaxiCompany.Core.Entities;
-using TaxiCompany.Application.Models.Person;
 using TaxiCompany.DataAccess.Repositories.Impl;
 using TaxiCompany.Application.Models.Trip;
 using TaxiCompany.Application.Services.Interfaces;

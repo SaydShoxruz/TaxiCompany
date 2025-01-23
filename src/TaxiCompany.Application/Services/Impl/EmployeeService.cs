@@ -36,7 +36,7 @@ public class EmployeeService : IEmployeeService
 
     public async Task<CreateEmployeeResponseModel> CreateAsync(CreateEmployeeModel createEmployeeModel)
     {
-        var user = await _userRepository.SelectByIdAsync(createEmployeeModel.PersonId);
+        var user = await _userRepository.SelectByIdAsync(createEmployeeModel.UserId);
         var role = await _roleRepository.GetFirstAsync(cti => cti.Id == createEmployeeModel.RoleId);
 
         var employee = _mapper.Map<Employee>(createEmployeeModel);

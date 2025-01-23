@@ -23,13 +23,13 @@ public class EmployeesController : ApiController
             await _employeeService.GetAll()));
     }
 
-    [HttpPost]
-    //[AllowAnonymous]
-    public async Task<IActionResult> CreateAsync(CreateEmployeeModel createEmployeeModel)
-    {
-        return Ok(ApiResult<CreateEmployeeResponseModel>.Success(
-            await _employeeService.CreateAsync(createEmployeeModel)));
-    }
+    //[HttpPost]
+    ////[AllowAnonymous]
+    //public async Task<IActionResult> CreateAsync(CreateEmployeeModel createEmployeeModel)
+    //{
+    //    return Ok(ApiResult<CreateEmployeeResponseModel>.Success(
+    //        await _employeeService.CreateAsync(createEmployeeModel)));
+    //}
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpdateAsync(Guid id, UpdateEmployeeModel updateEmployeeModel)

@@ -9,15 +9,15 @@ using TaxiCompany.DataAccess.Repositories.Interfaces;
 
 namespace TaxiCompany.Application.Services.Impl;
 
-public class CarsOwnerService : ICarsOwnerService
+public class DriverService : IDriverService
 {
 
     private IMapper _mapper;
-    private ICarsOwnerRepository _carsOwnerRepository;
+    private IDriverRepository _carsOwnerRepository;
     private IUserRepository _userRepository;
 
-    public CarsOwnerService(IMapper mapper,
-        ICarsOwnerRepository carsOwnerRepository,
+    public DriverService(IMapper mapper,
+        IDriverRepository carsOwnerRepository,
         IUserRepository userRepository)
     {
         _mapper = mapper;
@@ -25,20 +25,20 @@ public class CarsOwnerService : ICarsOwnerService
         _userRepository = userRepository;
     }
 
-    public async Task<IEnumerable<CarsOwnerResponseModel>> GetAllByPersonIdAsync(Guid id)
+    public async Task<IEnumerable<DriverResponseModel>> GetAllByPersonIdAsync(Guid id)
     {
         var carsOwners = await _carsOwnerRepository.GetAllAsync(cti => cti.User.Id == id);
 
-        return _mapper.Map<IEnumerable<CarsOwnerResponseModel>>(carsOwners);
+        return _mapper.Map<IEnumerable<DriverResponseModel>>(carsOwners);
     }
 
 
-    public async Task<CreateCarsOwnerResponseModel> CreateAsync(CreateCarsOwnerModel createCarsOwnerModel,
+    public async Task<CreateCarsOwnerResponseModel> CreateAsync(CreateDriverModel createCarsOwnerModel,
         CancellationToken cancellationToken = default)
     {
-        var person = await _userRepository.SelectByIdAsync(createCarsOwnerModel.PersonId);
+        var person = await _userRepository.SelectByIdAsync(createCarsOwnerModel.UserId);
 
-        var carsOwner = _mapper.Map<CarsOwner>(createCarsOwnerModel);
+        var carsOwner = _mapper.Map<Driver>(createCarsOwnerModel);
         carsOwner.User = person;
 
         return new CreateCarsOwnerResponseModel

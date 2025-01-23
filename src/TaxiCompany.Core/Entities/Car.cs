@@ -8,7 +8,7 @@ public class Car : BaseEntity, IAuditedEntity
 
     public bool IsFree { get; set; } = false;
 
-    public CarsOwner CarsOwner { get; set; }
+    public Driver CarsOwner { get; set; }
 
     public List<Company> Companies { get; } = new List<Company>();
 

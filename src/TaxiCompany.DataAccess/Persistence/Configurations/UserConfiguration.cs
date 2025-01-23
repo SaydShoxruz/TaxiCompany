@@ -52,6 +52,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             {
                 Id = Guid.Parse("bc56836e-0345-4f01-a883-47f39e32e079"),
                 FirstName = "Shoxruz",
+                PhoneNumber = "+998881752200",
                 Role = UserRole.Admin,
                 Email = "saydshox123@gmail.com",
                 PasswordHash = "12345",

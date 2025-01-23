@@ -14,7 +14,7 @@ public class Card : BaseEntity, IAuditedEntity
 
     public decimal Balance { get; set; }
 
-    public Person Person { get; set; }
+    public User User { get; set; }
 
     public string? CreatedBy { get; set; }
 

@@ -23,13 +23,13 @@ public class ClientsController : ApiController
             await _clientService.GetAllByPersonIdAsync(id)));
     }
 
-    [HttpPost]
-    //[AllowAnonymous]
-    public async Task<IActionResult> CreateAsync(CreateClientModel createClientModel)
-    {
-        return Ok(ApiResult<CreateClientResponseModel>.Success(
-            await _clientService.CreateAsync(createClientModel)));
-    }
+    //[HttpPost]
+    ////[AllowAnonymous]
+    //public async Task<IActionResult> CreateAsync(CreateClientModel createClientModel)
+    //{
+    //    return Ok(ApiResult<CreateClientResponseModel>.Success(
+    //        await _clientService.CreateAsync(createClientModel)));
+    //}
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpdateAsync(Guid id, UpdateClientModel updateClientModel)

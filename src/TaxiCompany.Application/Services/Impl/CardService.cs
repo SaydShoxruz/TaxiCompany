@@ -14,23 +14,20 @@ public class CardService : ICardService
 {
     private IMapper _mapper;
     private ICardRepository _cardRepository;
-    private IPersonRepository _personRepository;
-    private IBankRepository _bankRepository;
+    private IUserRepository _userRepository;
 
     public CardService(IMapper mapper,
         ICardRepository cardRepository,
-        IPersonRepository personRepository,
-        IBankRepository bankRepository)
+        IUserRepository userRepository)
     {
         _mapper = mapper;
         _cardRepository = cardRepository;
-        _personRepository = personRepository;
-        _bankRepository = bankRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<IEnumerable<CardResponseModel>> GetAllByPersonIdAsync(Guid id)
     {
-        var cards = _cardRepository.GetFirstAsync(cti => cti.Person.Id == id);
+        var cards = _cardRepository.GetFirstAsync(cti => cti.User.Id == id);
 
         return _mapper.Map<IEnumerable<CardResponseModel>>(cards);
     }
@@ -39,12 +36,10 @@ public class CardService : ICardService
     public async Task<CreateCardResponseModel> CreateAsync(CreateCardModel createCardModel,
         CancellationToken cancellationToken = default)
     {
-        var person = await _personRepository.GetFirstAsync(cti => cti.Id == createCardModel.PersonId);
-        var bank = await _bankRepository.GetFirstAsync(cti => cti.Id == createCardModel.BankId);
+        var user = await _userRepository.SelectByIdAsync(createCardModel.UserId);
 
         var card = _mapper.Map<Card>(createCardModel);
-        card.Bank = bank;
-        card.Person = person;
+        card.User = user;
 
         return new CreateCardResponseModel
         {

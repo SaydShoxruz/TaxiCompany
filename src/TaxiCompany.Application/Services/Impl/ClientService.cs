@@ -35,7 +35,7 @@ public class ClientService : IClientService
     public async Task<CreateClientResponseModel> CreateAsync(CreateClientModel createClientModel,
         CancellationToken cancellationToken = default)
     {
-        var user = await _userRepository.SelectByIdAsync(createClientModel.PersonId);
+        var user = await _userRepository.SelectByIdAsync(createClientModel.UserId);
 
         var client = _mapper.Map<Client>(createClientModel);
         client.User = user;

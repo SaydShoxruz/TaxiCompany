@@ -4,7 +4,7 @@ using TaxiCompany.DataAccess.Repositories.Interfaces;
 
 namespace TaxiCompany.DataAccess.Repositories.Impl;
 
-public class PersonRepository : BaseRepository<Person>, IPersonRepository
+public class DriverRepository : BaseRepository<Driver>, IDriverRepository
 {
-    public PersonRepository(DatabaseContext context) : base(context) { }
+    public DriverRepository(DatabaseContext context) : base(context) { }
 }

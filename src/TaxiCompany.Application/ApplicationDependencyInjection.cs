@@ -29,14 +29,13 @@ public static class ApplicationDependencyInjection
     {
         services.AddScoped<IBankService, BankService>();
         services.AddScoped<ICarService, CarService>();
-        services.AddScoped<ICarsOwnerService, CarsOwnerService>();
+        services.AddScoped<IDriverService, DriverService>();
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<ICompanyService, CompanyService>();
         services.AddScoped<IDocumentService, DocumentService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
         services.AddScoped<IImpressionsService, ImpressionsService>();
         services.AddScoped<IInsuranceService, InsuranceService>();
-        services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<IRoleService, RoleService>();
         services.AddScoped<ITripService, TripService>();
         services.AddScoped<ICardService, CardService>();
@@ -45,11 +44,13 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IUserFactory, UserFactory>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IEmailService, DevEmailService>();
 
-        if (env.IsDevelopment())
-            services.AddScoped<IEmailService, DevEmailService>();
-        else
-            services.AddScoped<IEmailService, EmailService>();
+
+        //if (env.IsDevelopment())
+        //    services.AddScoped<IEmailService, DevEmailService>();
+        //else
+        //    services.AddScoped<IEmailService, EmailService>();
     }
 
     private static void RegisterAutoMapper(this IServiceCollection services)

@@ -3,7 +3,7 @@ using TaxiCompany.Core.Enums;
 
 namespace TaxiCompany.Core.Entities;
 
-public class CarsOwner : BaseEntity, IAuditedEntity
+public class Driver : BaseEntity, IAuditedEntity
 {
     public int Priority { get; set; } = 100;
 

@@ -10,7 +10,7 @@ public class CardConfiguration : IEntityTypeConfiguration<Card>
     {
         builder.HasOne(tl => tl.Bank);
 
-        builder.HasOne(tl => tl.Person);
+        builder.HasOne(tl => tl.User);
 
         builder.Property(tl => tl.Num)
             .HasMaxLength(16)

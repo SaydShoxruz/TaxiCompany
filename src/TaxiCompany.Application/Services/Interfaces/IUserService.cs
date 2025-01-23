@@ -10,4 +10,5 @@ public interface IUserService
     IQueryable<User> RetrieveUsers();
     ValueTask<UserDto> ModifyUserAsync(UserForModificationDto userForModificationDto);
     ValueTask<UserDto> RemoveUserAsync(Guid userId);
+    Task CreateByRole(UserDto userDto);
 }

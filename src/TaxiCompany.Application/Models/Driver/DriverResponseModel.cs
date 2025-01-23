@@ -1,6 +1,6 @@
 ﻿namespace TaxiCompany.Application.Models.CarsOwner;
 
-public class CarsOwnerResponseModel : BaseResponseModel
+public class DriverResponseModel : BaseResponseModel
 {
     public short Priority { get; set; } = 100;
 

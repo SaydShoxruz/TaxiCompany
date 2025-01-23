@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
+    <PackageReference Include="Google.Apis.Gmail.v1" Version="1.68.0.3427" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\tests\TaxiCompany.Shared\TaxiCompany.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

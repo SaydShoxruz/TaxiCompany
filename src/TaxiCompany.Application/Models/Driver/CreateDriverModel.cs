@@ -1,8 +1,8 @@
 ﻿namespace TaxiCompany.Application.Models.CarsOwner;
 
-public class CreateCarsOwnerModel
+public class CreateDriverModel
 {
-    public Guid PersonId { get; set; }
+    public Guid UserId { get; set; }
 
     public decimal CompanyWallet { get; set; }
 }

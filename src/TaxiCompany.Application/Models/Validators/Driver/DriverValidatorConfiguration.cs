@@ -1,6 +1,6 @@
 ﻿namespace TaxiCompany.Application.Models.Validators.CarsOwner;
 
-public static class CarsOwnerValidatorConfiguration
+public static class DriverValidatorConfiguration
 {
     public const int MinPriorityValue = 0;
 

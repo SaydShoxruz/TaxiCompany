@@ -15,9 +15,5 @@ public class CreateCardModelValidator : AbstractValidator<CreateCardModel>
         RuleFor(cti => cti.Num)
             .Length(CardValidatorConfiguration.NumLength)
             .WithMessage($"Length for Num - {CardValidatorConfiguration.NumLength}");
-
-        RuleFor(cti => cti.Balance)
-            .GreaterThanOrEqualTo(CardValidatorConfiguration.MinBalanceValue)
-            .WithMessage($"Minimum Value for Balance - {CardValidatorConfiguration.MinBalanceValue}");
     }
 }

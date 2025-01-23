@@ -9,6 +9,8 @@ public class Trip : BaseEntity, IAuditedEntity
 
     public Car Car { get; set; }
 
+    public Driver Driver { get; set; }
+
     public string StartLocation { get; set; }
 
     public string? EndLocation { get; set; }

@@ -1,16 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Reflection;
 using TaxiCompany.Core.Common;
-using TaxiCompany.Shared.Services;
 using TaxiCompany.Core.Entities;
-using System.Text.RegularExpressions;
-using System.Reflection.Emit;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Security.Claims;
 using TaxiCompany.DataAccess.Authentication;
+using TaxiCompany.Shared.Services;
 
 namespace TaxiCompany.DataAccess.Persistence;
 
@@ -33,7 +28,7 @@ public class DatabaseContext : DbContext
 
     public DbSet<Card> Cards { get; set; }
 
-    public DbSet<CarsOwner> CarsOwners { get; set; }
+    public DbSet<Driver> Drivers { get; set; }
 
     public DbSet<Client> Clients { get; set; }
 
@@ -42,8 +37,6 @@ public class DatabaseContext : DbContext
     public DbSet<Impressions> Impressions { get; set; }
 
     public DbSet<Insurance> Insurances { get; set; }
-
-    public DbSet<Person> People { get; set; }
 
     public DbSet<Document> Documents { get; set; }
 

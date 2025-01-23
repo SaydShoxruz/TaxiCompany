@@ -6,6 +6,7 @@ using TaxiCompany.DataAccess.Persistence;
 using TaxiCompany.DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
 using TaxiCompany.Core.Exceptions;
+using TaxiCompany.Core.Enums;
 
 namespace TaxiCompany.DataAccess.Repositories.Impl;
 
@@ -15,7 +16,6 @@ public class UserRepository : IUserRepository
 
     public UserRepository(DatabaseContext appDbContext) =>
         _databaseContext = appDbContext;
-
 
     public async ValueTask<User> InsertAsync(
         User user)

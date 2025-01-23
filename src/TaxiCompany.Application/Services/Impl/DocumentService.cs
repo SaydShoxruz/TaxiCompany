@@ -31,7 +31,7 @@ public class DocumentService : IDocumentService
 
     public async Task<CreateDocumentResponseModel> CreateAsync(CreateDocumentModel createDocumentModel)
     {
-        var user = await _userRepository.SelectByIdAsync(createDocumentModel.PersonId);
+        var user = await _userRepository.SelectByIdAsync(createDocumentModel.UserId);
 
         var document = _mapper.Map<Document>(createDocumentModel);
         document.User = user;

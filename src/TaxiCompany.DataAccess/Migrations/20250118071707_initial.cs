@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TaxiCompany.DataAccess.Persistence.Migrations
+namespace TaxiCompany.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class initial : Migration
@@ -25,22 +25,6 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Banks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "People",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
-                    CreatedBy = table.Column<string>(type: "text", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "text", nullable: true),
-                    UpdatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_People", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,6 +53,7 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Role = table.Column<int>(type: "integer", nullable: false),
                     PasswordHash = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
@@ -117,7 +102,7 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     Term = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
                     IsVerified = table.Column<bool>(type: "boolean", nullable: false),
                     Balance = table.Column<decimal>(type: "numeric", nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedBy = table.Column<string>(type: "text", nullable: true),
@@ -133,34 +118,9 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cards_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CarsOwners",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Priority = table.Column<int>(type: "integer", maxLength: 100, nullable: false),
-                    Rating = table.Column<decimal>(type: "numeric", maxLength: 5, nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CompanyWallet = table.Column<decimal>(type: "numeric", nullable: false),
-                    CreatedBy = table.Column<string>(type: "text", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "text", nullable: true),
-                    UpdatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarsOwners", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CarsOwners_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
+                        name: "FK_Cards_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -170,7 +130,7 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     SubscriptionStatus = table.Column<bool>(type: "boolean", nullable: false),
                     AccountWallet = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
@@ -182,9 +142,9 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Clients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Clients_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
+                        name: "FK_Clients_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -198,7 +158,7 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     Series = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false),
                     Num = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
                     PINFL = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedBy = table.Column<string>(type: "text", nullable: true),
@@ -208,9 +168,35 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Documents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Documents_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
+                        name: "FK_Documents_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Drivers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Priority = table.Column<int>(type: "integer", maxLength: 100, nullable: false),
+                    Rating = table.Column<decimal>(type: "numeric", maxLength: 5, nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TarifType = table.Column<int>(type: "integer", nullable: false),
+                    CompanyWallet = table.Column<decimal>(type: "numeric", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "text", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Drivers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Drivers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -224,7 +210,7 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
                     HireDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DismissalDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     RoleId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -241,15 +227,15 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Employees_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Employees_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Employees_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -271,9 +257,9 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Cars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cars_CarsOwners_CarsOwnerId",
+                        name: "FK_Cars_Drivers_CarsOwnerId",
                         column: x => x.CarsOwnerId,
-                        principalTable: "CarsOwners",
+                        principalTable: "Drivers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -361,6 +347,7 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ClientId = table.Column<Guid>(type: "uuid", nullable: false),
                     CarId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DriverId = table.Column<Guid>(type: "uuid", nullable: false),
                     StartLocation = table.Column<string>(type: "text", nullable: false),
                     EndLocation = table.Column<string>(type: "text", nullable: true),
                     StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -388,12 +375,18 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trips_Drivers_DriverId",
+                        column: x => x.DriverId,
+                        principalTable: "Drivers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "LastName", "PasswordHash", "RefreshToken", "RefreshTokenExpireDate", "Role", "Salt", "UpdatedAt" },
-                values: new object[] { new Guid("bc56836e-0345-4f01-a883-47f39e32e079"), new DateTime(2025, 1, 9, 15, 3, 55, 645, DateTimeKind.Utc).AddTicks(9368), "saydshox123@gmail.com", "Shoxruz", null, "12345", null, null, 1, "479ad400-c1a9-412a-9ca6-c591e91c3ccb", null });
+                columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "LastName", "PasswordHash", "PhoneNumber", "RefreshToken", "RefreshTokenExpireDate", "Role", "Salt", "UpdatedAt" },
+                values: new object[] { new Guid("bc56836e-0345-4f01-a883-47f39e32e079"), new DateTime(2025, 1, 18, 7, 17, 6, 948, DateTimeKind.Utc).AddTicks(5140), "saydshox123@gmail.com", "Shoxruz", null, "12345", "+998881752200", null, null, 1, "23735e33-4414-4eeb-92b7-408e9e544fea", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CarCompany_CompaniesId",
@@ -406,9 +399,9 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 column: "BankId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cards_PersonId",
+                name: "IX_Cards_UserId",
                 table: "Cards",
-                column: "PersonId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CarsOwnerId",
@@ -416,14 +409,9 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 column: "CarsOwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarsOwners_PersonId",
-                table: "CarsOwners",
-                column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clients_PersonId",
+                name: "IX_Clients_UserId",
                 table: "Clients",
-                column: "PersonId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_BankId",
@@ -431,9 +419,14 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 column: "BankId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Documents_PersonId",
+                name: "IX_Documents_UserId",
                 table: "Documents",
-                column: "PersonId");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Drivers_UserId",
+                table: "Drivers",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_CompanyId",
@@ -441,14 +434,14 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_PersonId",
-                table: "Employees",
-                column: "PersonId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_RoleId",
                 table: "Employees",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_UserId",
+                table: "Employees",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Impressions_CarId",
@@ -469,6 +462,11 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 name: "IX_Trips_ClientId",
                 table: "Trips",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_DriverId",
+                table: "Trips",
+                column: "DriverId");
         }
 
         /// <inheritdoc />
@@ -496,9 +494,6 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 name: "Trips");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Companies");
 
             migrationBuilder.DropTable(
@@ -514,10 +509,10 @@ namespace TaxiCompany.DataAccess.Persistence.Migrations
                 name: "Banks");
 
             migrationBuilder.DropTable(
-                name: "CarsOwners");
+                name: "Drivers");
 
             migrationBuilder.DropTable(
-                name: "People");
+                name: "Users");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace TaxiCompany.Application.Models.CarsOwner;
 
-public class UpdateCarsOwnerModel
+public class UpdateDriverModel
 {
     public int Priority { get; set; }
 

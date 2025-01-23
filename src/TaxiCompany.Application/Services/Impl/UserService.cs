@@ -1,23 +1,37 @@
 ﻿using Microsoft.AspNetCore.Http;
 using TaxiCompany.Application.Models;
+using TaxiCompany.Application.Models.CarsOwner;
+using TaxiCompany.Application.Models.Client;
+using TaxiCompany.Application.Models.Employee;
 using TaxiCompany.Application.Models.Users;
 using TaxiCompany.Application.Services.Interfaces;
 using TaxiCompany.Core.Entities;
+using TaxiCompany.Core.Enums;
 using TaxiCompany.DataAccess.Repositories.Interfaces;
 
 namespace TaxiCompany.Application.Services.Impl;
 
 public partial class UserService : IUserService
 {
-    private readonly IUserRepository userRepository;
-    private readonly IUserFactory userFactory;
+    private readonly IUserRepository _userRepository;
+    private readonly IUserFactory _userFactory;
+    private readonly IClientService _clientService;
+    private readonly IEmployeeService _employeeService;
+    private readonly IDriverService _driverService;
 
     public UserService(
         IUserRepository userRepository,
-        IUserFactory userFactory)
+        IUserFactory userFactory,
+        IClientService clientService,
+        IEmployeeService employeeService,
+        IDriverService driverService)
     {
-        this.userRepository = userRepository;
-        this.userFactory = userFactory;
+        _userRepository = userRepository;
+        _userFactory = userFactory;
+        _clientService = clientService;
+        _employeeService = employeeService;
+        _driverService = driverService;
+
     }
 
     public async ValueTask<UserDto> CreateUserAsync(
@@ -25,18 +39,34 @@ public partial class UserService : IUserService
     {
         ValidateUserForCreationDto(userForCreationDto);
 
-        var newUser = this.userFactory
+        var newUser = _userFactory
             .MapToUser(userForCreationDto);
 
-        var addedUser = await this.userRepository
+        var addedUser = await _userRepository
             .InsertAsync(newUser);
+        return _userFactory.MapToUserDto(addedUser);
+    }
 
-        return this.userFactory.MapToUserDto(addedUser);
+    public async Task CreateByRole(UserDto userDto)
+    {
+
+        if (userDto.role == UserRole.Client)
+        {
+            await _clientService.CreateAsync(new CreateClientModel { UserId = userDto.id });
+        }
+        else if (userDto.role == UserRole.Employee)
+        {
+            await _employeeService.CreateAsync(new CreateEmployeeModel { UserId = userDto.id });
+        }
+        else if (userDto.role == UserRole.Driver)
+        {
+            await _driverService.CreateAsync(new CreateDriverModel { UserId = userDto.id });
+        }
     }
 
     public IQueryable<User> RetrieveUsers()
     {
-        var users = this.userRepository.SelectAll();
+        var users = _userRepository.SelectAll();
 
         return users;
     }
@@ -45,7 +75,7 @@ public partial class UserService : IUserService
     {
         ValidateUserId(userId);
 
-        var storageUser = await this.userRepository
+        var storageUser = await _userRepository
             .SelectByIdWithDetailsAsync(
                 expression: user =>
                     user.Id == userId);
@@ -60,34 +90,34 @@ public partial class UserService : IUserService
     {
         ValidateUserForModificationDto(userForModificationDto);
 
-        var storageUser = await this.userRepository
+        var storageUser = await _userRepository
             .SelectByIdWithDetailsAsync(
                 expression: user =>
                     user.Id == userForModificationDto.userId);
 
         ValidateStorageUser(storageUser, userForModificationDto.userId);
 
-        this.userFactory.MapToUser(storageUser, userForModificationDto);
+        _userFactory.MapToUser(storageUser, userForModificationDto);
 
-        var modifiedUser = await this.userRepository
+        var modifiedUser = await _userRepository
             .UpdateAsync(storageUser);
 
-        return this.userFactory.MapToUserDto(modifiedUser);
+        return _userFactory.MapToUserDto(modifiedUser);
     }
 
     public async ValueTask<UserDto> RemoveUserAsync(Guid userId)
     {
         ValidateUserId(userId);
 
-        var storageUser = await this.userRepository
+        var storageUser = await _userRepository
             .SelectByIdAsync(userId);
 
         ValidateStorageUser(storageUser, userId);
 
-        var removedUser = await this.userRepository
+        var removedUser = await _userRepository
             .DeleteAsync(storageUser);
 
-        return this.userFactory.MapToUserDto(removedUser);
+        return _userFactory.MapToUserDto(removedUser);
     }
 
     private UserDto MapToUserDto(User user)
@@ -96,6 +126,7 @@ public partial class UserService : IUserService
             user.Id,
             user.FirstName,
             user.LastName!,
+            user.PhoneNumber,
             user.Email,
             user.Role);
     }

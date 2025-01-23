@@ -46,8 +46,9 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim(CustomClaimNames.Role, "Driver"));
     options.AddPolicy("Client", policy =>
         policy.RequireClaim(CustomClaimNames.Role, "Client"));
-
 });
+
+
 
 
 builder.Services.AddFluentValidationAutoValidation();

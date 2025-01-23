@@ -2,7 +2,7 @@
 
 public class CreateClientModel
 {
-    public Guid PersonId { get; set; }
+    public Guid UserId { get; set; }
 }
 
 public class CreateClientResponseModel : BaseResponseModel { }

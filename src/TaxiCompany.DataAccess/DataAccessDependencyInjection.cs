@@ -25,14 +25,13 @@ public static class DataAccessDependencyInjection
         services.AddScoped<IBankRepository, BankRepository>();
         services.AddScoped<ICardRepository, CardRepository>();
         services.AddScoped<ICarRepository, CarRepository>();
-        services.AddScoped<ICarsOwnerRepository, CarsOwnerRepository>();
+        services.AddScoped<IDriverRepository, DriverRepository>();
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<ICompanyRepository, CompanyRepository>();
         services.AddScoped<IDocumentRepository, DocumentRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IImpressionsRepository, ImpressionsRepository>();
         services.AddScoped<IInsuranceRepository, InsuranceRepository>();
-        services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<ITripRepository, TripRepository>();
         services.AddScoped<IUserRepository, UserRepository>();

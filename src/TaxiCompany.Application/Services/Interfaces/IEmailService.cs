@@ -4,5 +4,6 @@ namespace TaxiCompany.Application.Services.Interfaces;
 
 public interface IEmailService
 {
-    Task SendEmailAsync(EmailMessage emailMessage);
+    //Task SendEmailAsync(EmailMessage emailMessage);
+    void SendEmalDefault();
 }
